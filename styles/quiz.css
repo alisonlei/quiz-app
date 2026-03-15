@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+#time-up-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 50%;
+  background-color: white;
+
+  font-size: 3rem;
+  font-weight: bold;
+
+  border: 5px solid black;
+  border-radius: 1em;
+  padding: 1em;
+}
+fieldset {
+  margin: 2em 0;
+  background-color: red;
+  width: 100%;
+}
+legend {
+  font-weight: bold;
+}
+#quiz-controls {
+  position: relative;
+}
+#quiz-controls #submit {
+  position: absolute;
+  left: 50%;
+}

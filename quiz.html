@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Trivia Quiz</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/quiz.css" />
+
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="./images/brain.png" alt="a brain icon" />
+      <h1>My Trivia Quiz</h1>
+    </header>
+    <main>
+      <template id="multiple">
+        <fieldset>
+          <legend></legend>
+          <label> <input type="radio" /> </label>
+          <label> <input type="radio" /> </label>
+          <label> <input type="radio" /></label>
+          <label> <input type="radio" /></label>
+        </fieldset>
+      </template>
+      <template id="boolean">
+        <fieldset>
+          <legend></legend>
+          <label> <input type="radio" />True</label>
+          <label> <input type="radio" />False</label>
+        </fieldset>
+      </template>
+      <p>Time left:<time></time></p>
+      <div id="time-up-modal">
+        <p>
+          Time is up. You will be redirected to view your score and incorrect
+          answers.
+        </p>
+      </div>
+      <section id="questionSet"></section>
+      <nav id="question-panel">
+        <ul>
+          <li><a></a></li>
+        </ul>
+      </nav>
+      <div id="quiz-controls">
+        <button id="submit">Submit quiz</button>
+        <button id="next">Next question</button>
+        <button id="exit">Exit</button>
+      </div>
+    </main>
+
+    <script></script>
+  </body>
+</html>
+
+<!-- issue1:showing questions
+//  weird words
+//   styling-->
+
+<!-- issue2:setting and showing timer ---OK -->
+
+<!-- issue3:track answers -->
+
+<!-- issue 4:calculating scores -->
+
+<!-- issue 5:restart and quit buttons,showing each question once at a time, allowing users to return  -->

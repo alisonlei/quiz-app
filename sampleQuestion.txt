@@ -1,0 +1,123 @@
+{
+    "response_code": 0,
+    "results": [
+        {
+            "type": "boolean",
+            "difficulty": "easy",
+            "category": "History",
+            "question": "In World War ll, Great Britian used inflatable tanks on the ports of Great Britain to divert Hitler away from Normandy\/D-day landing.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "History",
+            "question": "What is the name of the ship which was only a few miles away from the RMS Titanic when it struck an iceberg on April 14, 1912?",
+            "correct_answer": "Californian",
+            "incorrect_answers": [
+                "Carpathia",
+                "Cristol",
+                "Commerce"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "History",
+            "question": "What was the name of the spy ring that helped the United States win the Revolutionary War?",
+            "correct_answer": "Culper Ring",
+            "incorrect_answers": [
+                "New York Spy Ring",
+                "Washington&#039;s Spies",
+                "Unnamed"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "History",
+            "question": "Which U.S. president was said to have been too honest to lie to his father about chopping down a cherry tree?",
+            "correct_answer": "George Washington",
+            "incorrect_answers": [
+                "Abraham Lincoln",
+                "Thomas Jefferson",
+                "James Monroe"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "History",
+            "question": "During which American Civil War campaign did Union troops dig a tunnel beneath Confederate troops to detonate explosives underneath them?",
+            "correct_answer": "Siege of Petersburg",
+            "incorrect_answers": [
+                "Siege of Vicksburg",
+                "Antietam Campaign",
+                "Gettysburg Campagin"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "History",
+            "question": "When did the French Revolution begin?",
+            "correct_answer": "May 05 1789",
+            "incorrect_answers": [
+                "April 12 1789",
+                "April 05 1789",
+                "May 06 1799"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "easy",
+            "category": "History",
+            "question": "In what year did the Wall Street Crash take place?",
+            "correct_answer": "1929",
+            "incorrect_answers": [
+                "1932",
+                "1930",
+                "1925"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "History",
+            "question": "During the Mongolian invasions of Japan, what were the Mongol boats mostly stopped by?",
+            "correct_answer": "Typhoons",
+            "incorrect_answers": [
+                "Tornados",
+                "Economic depression",
+                "Samurai"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "History",
+            "question": "When did the French Revolution begin?",
+            "correct_answer": "1789",
+            "incorrect_answers": [
+                "1823",
+                "1756",
+                "1799"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "History",
+            "question": "When was the People&#039;s Republic of China founded?",
+            "correct_answer": "October 1, 1949",
+            "incorrect_answers": [
+                "April 3, 1947",
+                "May 7, 1945",
+                "December 6, 1950"
+            ]
+        }
+    ]
+}

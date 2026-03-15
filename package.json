@@ -1,0 +1,22 @@
+{
+  "name": "quizapp",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "alison",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "easytimer.js": "^4.6.0",
+    "ejs": "^5.0.1"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0"
+  }
+}
