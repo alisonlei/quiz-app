@@ -15,22 +15,20 @@
       <h1>My Trivia Quiz</h1>
     </header>
     <main>
-      <template id="multiple">
-        <fieldset>
-          <legend></legend>
-          <label> <input type="radio" /> </label>
-          <label> <input type="radio" /> </label>
-          <label> <input type="radio" /></label>
-          <label> <input type="radio" /></label>
-        </fieldset>
-      </template>
-      <template id="boolean">
-        <fieldset>
-          <legend></legend>
-          <label> <input type="radio" />True</label>
-          <label> <input type="radio" />False</label>
-        </fieldset>
-      </template>
+      <fieldset id="multiple" class="hide">
+        <legend></legend>
+
+        <label> <input type="radio" /></label>
+        <label> <input type="radio" /></label>
+        <label> <input type="radio" /></label>
+        <label> <input type="radio" /></label>
+      </fieldset>
+      <fieldset id="boolean" class="hide">
+        <legend></legend>
+
+        <label> <input type="radio" />True</label>
+        <label> <input type="radio" />False</label>
+      </fieldset>
       <p>Time left:<time></time></p>
       <div id="time-up-modal">
         <p>

@@ -121,3 +121,128 @@
         }
     ]
 }
+
+
+{
+    "response_code": 0,
+    "results": [
+        {
+            "type": "multiple",
+            "difficulty": "easy",
+            "category": "Entertainment: Video Games",
+            "question": "League of Legends, DOTA 2, Smite and Heroes of the Storm are all part of which game genre?",
+            "correct_answer": "Multiplayer Online Battle Arena (MOBA)",
+            "incorrect_answers": [
+                "Real Time Strategy (RTS)",
+                "First Person Shooter (FPS)",
+                "Role Playing Game (RPG)"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "Entertainment: Video Games",
+            "question": "In Monster Hunter Generations, which of these hunter arts are exclusive to the Longsword?",
+            "correct_answer": "Unhinged Spirit",
+            "incorrect_answers": [
+                "Shoryugeki",
+                "Provoke",
+                "Demon Riot"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "Entertainment: Video Games",
+            "question": "In &quot;Earthbound&quot;, how does one enter &quot;Master Belch&#039;s&quot; factory?",
+            "correct_answer": "Wait 3 Minutes",
+            "incorrect_answers": [
+                "Enter the password &quot;Fly Honey&quot;",
+                "Enter the password &quot;Master Belch Rules&quot;",
+                "Enter the password &quot;Mr Saturn Drools&quot;"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "Entertainment: Books",
+            "question": "Who is the protagonist of the book: &quot;The Catcher in the Rye&quot; by J.D. Salinger",
+            "correct_answer": "Holden Caulfield",
+            "incorrect_answers": [
+                "Holden David",
+                "Jerome Caulfield",
+                "Jerome David"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "easy",
+            "category": "Geography",
+            "question": "Which country was NOT part of the Soviet Union?",
+            "correct_answer": "Romania",
+            "incorrect_answers": [
+                "Turkmenistan",
+                "Belarus",
+                "Tajikistan"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "easy",
+            "category": "Entertainment: Video Games",
+            "question": "In the &quot;Worms&quot; series of video games, which of these weapons is affected by wind?",
+            "correct_answer": "Bazooka",
+            "incorrect_answers": [
+                "Grenade",
+                "Air Strike",
+                "Mortar"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "hard",
+            "category": "History",
+            "question": "What was Napoleon Bonaparte&#039;s name before he changed it?",
+            "correct_answer": "Napoleone di Buonaparte",
+            "incorrect_answers": [
+                "Naapolion van Bonijpaart",
+                "Napole&atilde;o do Boaparte",
+                "Napoleona de Buenoparte"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "General Knowledge",
+            "question": "What alcoholic drink is mainly made from juniper berries?",
+            "correct_answer": "Gin",
+            "incorrect_answers": [
+                "Vodka",
+                "Rum",
+                "Tequila"
+            ]
+        },
+        {
+            "type": "multiple",
+            "difficulty": "medium",
+            "category": "Entertainment: Music",
+            "question": "The co-creator of Gorillaz, Damon Albarn, is also the lead singer of what band?",
+            "correct_answer": "Blur",
+            "incorrect_answers": [
+                "Oasis",
+                "Radiohead",
+                "Queens of the Stone Age"
+            ]
+        },
+        {
+            "type": "boolean",
+            "difficulty": "easy",
+            "category": "Geography",
+            "question": "California is larger than Japan.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        }
+    ]
+}

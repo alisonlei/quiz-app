@@ -18,16 +18,29 @@
   border-radius: 1em;
   padding: 1em;
 }
+
+/* quesiton display */
+.hide {
+  display: none;
+}
+
 fieldset {
   margin: 2em 0;
-  background-color: red;
   width: 100%;
+}
+fieldset div {
+  display: flexbox;
+  flex-direction: column;
 }
 legend {
   font-weight: bold;
 }
+
+/* controls */
 #quiz-controls {
   position: relative;
+}
+#quiz-controls #next {
 }
 #quiz-controls #submit {
   position: absolute;

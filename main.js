@@ -10,9 +10,12 @@ const subjectQuery = window.location.search; //get the query string from the url
 const subjectParam = new URLSearchParams(subjectQuery);
 const subject = subjectParam.get("subject");
 const questionSet = document.querySelector("#questionSet");
+let prevQuesIdx = -1;
+let prevQuesType = "";
 let results;
 let selectedAns;
 function getQuestions(subject) {
+  // const testutl = "https://opentdb.com/api.php?amount=10&type=boolean";
   fetch(url[subject])
     .then((response) => {
       if (!response.ok) {
@@ -24,7 +27,7 @@ function getQuestions(subject) {
       results = json["results"];
       selectedAns = new Array(results.length);
       console.log("successful retrieval");
-      showQuestions(results);
+      handleDisplay(0);
     })
     .catch((err) => console.log(err.message));
 }
@@ -41,43 +44,97 @@ function decodeHtmlEntities(str) {
   txt.innerHTML = str;
   return txt.value;
 }
+function eraseDisplayContent() {
+  if (prevQuesType === "multiple") {
+    //erase options
+    document.querySelector("#multiple legend").textContent = "";
+    const options = document.querySelectorAll("#multiple label input");
+    options.forEach((opt) => {
+      opt.parentNode.removeChild(opt.nextSibling);
+    });
+  } else {
+    document.querySelector(`#boolean legend`).textContent = "";
+  }
+}
+function handleDisplay(questionIdx) {
+  if (prevQuesType == "") {
+    document
+      .querySelector(`#${results[questionIdx]["type"]}`)
+      .classList.remove("hide");
+  } else {
+    eraseDisplayContent();
+    // change question template to display
+    if (prevQuesType != results[questionIdx]["type"]) {
+      document.querySelector(`#${prevQuesType}`).classList.add("hide");
+      document
+        .querySelector(`#${results[questionIdx]["type"]}`)
+        .classList.remove("hide");
+    }
+  }
 
-function fillInQuestionContent(questionNo) {}
-function showQuestions(results) {
-  results.forEach((question, questionIndex) => {
-    const questionText = decodeHtmlEntities(question["question"]);
-    console.log(questionText);
+  fillInQuestionContent(questionIdx);
+  prevQuesIdx = questionIdx;
+  prevQuesType = results[questionIdx]["type"];
+}
+function fillInQuestionContent(questionIdx) {
+  const question = results[questionIdx];
+  const questionText = decodeHtmlEntities(question["question"]);
+
+  console.log(questionText);
+  document.querySelector(`#${question["type"]} legend`).textContent =
+    questionText;
+
+  // handle option display for multiple choice
+  if (question["type"] === "multiple") {
     const options = [
       question["correct_answer"],
       ...question["incorrect_answers"],
     ];
-    if (question["type"] === "multiple") {
-      const mcTemplate = document.querySelector("#multiple");
-      const content = mcTemplate.content.cloneNode(true);
-      content.querySelector("legend").textContent = questionText;
-      shuffle(options);
-
-      const mcOptionLabels = content.querySelectorAll("label");
-      mcOptionLabels.forEach((opt, i) => {
-        opt.appendChild(document.createTextNode(options[i]));
-      });
-      const mcOptions = content.querySelectorAll("input");
-      mcOptions.forEach((opt) => {
-        opt.setAttribute("name", questionIndex);
-      });
-      questionSet.appendChild(content);
-    } else {
-      const booTemplate = document.querySelector("#boolean");
-      const content = booTemplate.content.cloneNode(true);
-      content.querySelector("legend").textContent = questionText;
-      const booOptions = content.querySelectorAll("input");
-      booOptions.forEach((opt) => {
-        opt.setAttribute("name", questionIndex);
-      });
-      questionSet.appendChild(content);
-    }
-  });
+    options.forEach((opt) => decodeHtmlEntities(opt));
+    shuffle(options);
+    const mcOptionLabels = document.querySelectorAll("#multiple label");
+    mcOptionLabels.forEach((opt, i) => {
+      opt.appendChild(document.createTextNode(options[i]));
+      // opt.innerText = options[i];
+    });
+    console.log(`options:${options}`);
+  }
 }
+// function showQuestions(results) {
+//   results.forEach((question, questionIndex) => {
+//     const questionText = decodeHtmlEntities(question["question"]);
+//     console.log(questionText);
+//     const options = [
+//       question["correct_answer"],
+//       ...question["incorrect_answers"],
+//     ];
+//     if (question["type"] === "multiple") {
+//       const mcTemplate = document.querySelector("#multiple");
+//       const content = mcTemplate.content.cloneNode(true);
+//       content.querySelector("legend").textContent = questionText;
+//       shuffle(options);
+
+//       const mcOptionLabels = content.querySelectorAll("label");
+//       mcOptionLabels.forEach((opt, i) => {
+//         opt.appendChild(document.createTextNode(options[i]));
+//       });
+//       const mcOptions = content.querySelectorAll("input");
+//       mcOptions.forEach((opt) => {
+//         opt.setAttribute("name", questionIndex);
+//       });
+//       questionSet.appendChild(content);
+//     } else {
+//       const booTemplate = document.querySelector("#boolean");
+//       const content = booTemplate.content.cloneNode(true);
+//       content.querySelector("legend").textContent = questionText;
+//       const booOptions = content.querySelectorAll("input");
+//       booOptions.forEach((opt) => {
+//         opt.setAttribute("name", questionIndex);
+//       });
+//       questionSet.appendChild(content);
+//     }
+//   });
+// }
 function checkAnswers() {
   let score = 0;
   const answers = document.querySelectorAll("input[name]:checked");
@@ -110,6 +167,12 @@ timer.addEventListener("targetAchieved", () => {
   const popUpWindow = document.querySelector("#time-up-modal");
   popUpWindow.style.display = "block";
 });
-const submitBtn = document.querySelector("button");
+const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", checkAnswers);
+const nextBtn = document.querySelector("#next");
+
+nextBtn.addEventListener("click", () => {
+  let nextIdx = (prevQuesIdx + 1) % results.length;
+  handleDisplay(nextIdx);
+});
 getQuestions(subject);
