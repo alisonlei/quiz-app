@@ -38,11 +38,13 @@ legend {
 
 /* controls */
 #quiz-controls {
+  display: flex;
+  justify-content: space-evenly;
   position: relative;
 }
 #quiz-controls #next {
 }
-#quiz-controls #submit {
-  position: absolute;
+/* #quiz-controls #submit { */
+/* position: absolute;
   left: 50%;
-}
+} */

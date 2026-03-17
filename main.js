@@ -14,23 +14,7 @@ let prevQuesIdx = -1;
 let prevQuesType = "";
 let results;
 let selectedAns;
-function getQuestions(subject) {
-  // const testutl = "https://opentdb.com/api.php?amount=10&type=boolean";
-  fetch(url[subject])
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`response status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((json) => {
-      results = json["results"];
-      selectedAns = new Array(results.length);
-      console.log("successful retrieval");
-      handleDisplay(0);
-    })
-    .catch((err) => console.log(err.message));
-}
+let prevQuesOptSeq;
 
 function shuffle(options) {
   for (let i = options.length - 1; i > -1; i--) {
@@ -55,8 +39,15 @@ function eraseDisplayContent() {
   } else {
     document.querySelector(`#boolean legend`).textContent = "";
   }
+  const options = document.querySelectorAll(`#${prevQuesType} input`);
+  options.forEach((opt) => {
+    if (opt.checked) {
+      opt.checked = false;
+    }
+  });
 }
 function handleDisplay(questionIdx) {
+  console.log("at handle display" + results);
   if (prevQuesType == "") {
     document
       .querySelector(`#${results[questionIdx]["type"]}`)
@@ -76,70 +67,52 @@ function handleDisplay(questionIdx) {
   prevQuesIdx = questionIdx;
   prevQuesType = results[questionIdx]["type"];
 }
-function fillInQuestionContent(questionIdx) {
-  const question = results[questionIdx];
+function fillInQuestion(question) {
   const questionText = decodeHtmlEntities(question["question"]);
-
-  console.log(questionText);
+  console.log(document.querySelector(`#${question["type"]} legend`));
   document.querySelector(`#${question["type"]} legend`).textContent =
     questionText;
-
-  // handle option display for multiple choice
-  if (question["type"] === "multiple") {
-    const options = [
-      question["correct_answer"],
-      ...question["incorrect_answers"],
-    ];
-    options.forEach((opt) => decodeHtmlEntities(opt));
+}
+function displayOptions(question, questionIdx) {
+  let options;
+  if (prevQuesOptSeq[questionIdx] === undefined) {
+    options = [question["correct_answer"], ...question["incorrect_answers"]];
+    options = options.map((opt) => decodeHtmlEntities(opt));
     shuffle(options);
-    const mcOptionLabels = document.querySelectorAll("#multiple label");
-    mcOptionLabels.forEach((opt, i) => {
-      opt.appendChild(document.createTextNode(options[i]));
-      // opt.innerText = options[i];
-    });
-    console.log(`options:${options}`);
+    prevQuesOptSeq[questionIdx] = [...options];
+  }
+  options = prevQuesOptSeq[questionIdx];
+  console.log("at displayoptions" + question["type"]);
+  let optLabels = document.querySelectorAll(`#${question["type"]} label`);
+  optLabels.forEach((label, i) => {
+    label.appendChild(document.createTextNode(options[i]));
+  });
+}
+function displayPrevChoice(question, questionIdx) {
+  const options = document.querySelectorAll(`#${question["type"]} input`);
+  options.forEach((opt) => {
+    if (opt.nextSibling.nodeValue === selectedAns[questionIdx]) {
+      opt.checked = true;
+    }
+  });
+}
+function fillInQuestionContent(questionIdx) {
+  const question = results[questionIdx];
+
+  fillInQuestion(question);
+  if (question["type"] === "multiple") {
+    displayOptions(question, questionIdx);
+  }
+  console.log(`selected ans${selectedAns[questionIdx]}`);
+  console.log(`question idx${questionIdx}`);
+  if (selectedAns[questionIdx]) {
+    displayPrevChoice(question, questionIdx);
   }
 }
-// function showQuestions(results) {
-//   results.forEach((question, questionIndex) => {
-//     const questionText = decodeHtmlEntities(question["question"]);
-//     console.log(questionText);
-//     const options = [
-//       question["correct_answer"],
-//       ...question["incorrect_answers"],
-//     ];
-//     if (question["type"] === "multiple") {
-//       const mcTemplate = document.querySelector("#multiple");
-//       const content = mcTemplate.content.cloneNode(true);
-//       content.querySelector("legend").textContent = questionText;
-//       shuffle(options);
 
-//       const mcOptionLabels = content.querySelectorAll("label");
-//       mcOptionLabels.forEach((opt, i) => {
-//         opt.appendChild(document.createTextNode(options[i]));
-//       });
-//       const mcOptions = content.querySelectorAll("input");
-//       mcOptions.forEach((opt) => {
-//         opt.setAttribute("name", questionIndex);
-//       });
-//       questionSet.appendChild(content);
-//     } else {
-//       const booTemplate = document.querySelector("#boolean");
-//       const content = booTemplate.content.cloneNode(true);
-//       content.querySelector("legend").textContent = questionText;
-//       const booOptions = content.querySelectorAll("input");
-//       booOptions.forEach((opt) => {
-//         opt.setAttribute("name", questionIndex);
-//       });
-//       questionSet.appendChild(content);
-//     }
-//   });
-// }
 function checkAnswers() {
   let score = 0;
-  const answers = document.querySelectorAll("input[name]:checked");
-  answers.forEach((ans, i) => {
-    const selectedAns = ans.parentElement.textContent.trim();
+  selectedAns.forEach((ans, i) => {
     const correctAns = results[i]["correct_answer"];
     if (correctAns === selectedAns) {
       score += 1;
@@ -169,10 +142,38 @@ timer.addEventListener("targetAchieved", () => {
 });
 const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", checkAnswers);
+
 const nextBtn = document.querySelector("#next");
 
 nextBtn.addEventListener("click", () => {
   let nextIdx = (prevQuesIdx + 1) % results.length;
   handleDisplay(nextIdx);
 });
-getQuestions(subject);
+const radios = document.querySelectorAll("input");
+radios.forEach((radio) => {
+  radio.addEventListener("click", (e) => {
+    selectedAns[prevQuesIdx] = e.currentTarget.nextSibling.nodeValue;
+    console.log(selectedAns);
+  });
+});
+async function getQuestions(subject) {
+  try {
+    const response = await fetch(url[subject]);
+    if (!response.ok) {
+      throw new Error(`response status:${response.status}`);
+    }
+
+    let json = await response.json();
+    results = json["results"];
+    console.log(results);
+    selectedAns = new Array(results.length);
+    prevQuesOptSeq = new Array(results.length);
+    handleDisplay(0);
+  } catch (err) {
+    console.log(err);
+  }
+}
+let fetched = false;
+if (!fetched) {
+  getQuestions(subject);
+}
