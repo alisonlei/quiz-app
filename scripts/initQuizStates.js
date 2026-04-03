@@ -24,7 +24,7 @@ function shuffle(options) {
  */
 export default function initQuizStates(data) {
   const allQuestions = data["results"];
-  const allSelectedAns = new Array(allQuestions.length);
+  const allSelectedAns = new Array(allQuestions.length).fill("");
   const mcOptSeq = {};
 
   allQuestions.forEach((item, i) => {
@@ -33,9 +33,9 @@ export default function initQuizStates(data) {
     );
     if (item["type"] == "multiple") {
       let options = [item["correct_answer"], ...item["incorrect_answers"]];
-      options = options.map((opt) => decodeHtmlEntities(opt));
-      shuffle(options);
-      mcOptSeq[i] = options;
+      let decodedOptions = options.map((opt) => decodeHtmlEntities(opt));
+      shuffle(decodedOptions);
+      mcOptSeq[i] = decodedOptions;
     }
   });
   return [allQuestions, allSelectedAns, mcOptSeq];

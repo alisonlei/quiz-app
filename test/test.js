@@ -8,4 +8,11 @@ function test() {
   console.log(parsedS);
   console.log(typeof parsedS);
 }
-test();
+function trySort() {
+  const lt1 = [9, 4, 2, 5];
+  lt1.sort((a, b) => a - b);
+  console.log(lt1);
+  const lt2 = new Array(5).fill("");
+  console.log(lt2);
+}
+trySort();

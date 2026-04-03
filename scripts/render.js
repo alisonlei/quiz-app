@@ -41,9 +41,15 @@ function handleDisplayType(currQuesType, prevQuesType) {
  * display question text
  * @param {string} -question text
  */
-function fillInQuestion(type, question) {
+function fillInQuestion(questionIdx, type, question) {
   //   console.log(document.querySelector(`#${question["type"]} legend`));
-  document.querySelector(`#${type} legend`).textContent = question;
+  const legend = document.querySelector(`#${type} legend`);
+  const quesNo = document.createElement("span");
+  quesNo.textContent = `${questionIdx + 1}`;
+  legend.appendChild(quesNo);
+  const quesContent = document.createElement("span");
+  quesContent.textContent = `${question}`;
+  legend.appendChild(quesContent);
 }
 /**
  * display options
@@ -86,7 +92,7 @@ export default function render(
 ) {
   const { type, question, correct_answer, incorrect_answers } = questionData;
   handleDisplayType(type, prevQues["type"]);
-  fillInQuestion(type, question);
+  fillInQuestion(questionIdx, type, question);
   if (type == "multiple") {
     displayMcOptions(mcOptSeq[questionIdx], type);
   }

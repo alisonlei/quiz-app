@@ -3,13 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/score.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <!-- <script type="module" src="./scripts/score.js"></script> -->
   </head>
   <body>
     <header>
-      <h1></h1>
+      <img src="./images/brain.png" alt="a brain icon" />
+      <h1>My Trivia Quiz</h1>
     </header>
-    <main></main>
+    <main>
+      <h2></h2>
+
+      <button id="home-link-wrapper">
+        <a id="home-link" href="index.html">Home</a>
+      </button>
+    </main>
+
     <script>
       function renderScore() {
         console.log("redirected from quiz pagae ");
@@ -18,8 +28,10 @@
           const value = sessionStorage.getItem(key); // get the value
           console.log(key, value);
         }
+
         const score = sessionStorage.getItem("score");
-        const h = document.querySelector("h1");
+        sessionStorage.removeItem("score");
+        const h = document.querySelector("h2");
         h.textContent = `Score: ${score}`;
         if (score == "10") {
           const p = document.createElement("p");
@@ -27,24 +39,30 @@
             "Congradulations! You answered all questions correctly!";
         } else {
           const ul = document.createElement("ul");
-          for (let i = 0; i < sessionStorage.length - 1; i++) {
-            const key = sessionStorage.key(i); // get the key name
-            const values = JSON.parse(sessionStorage.getItem(key)); // get the value
+          const questionIdxs = [];
+
+          for (let i = 0; i < sessionStorage.length; i++) {
+            const questionIdx = sessionStorage.key(i); // get the question idx
+            questionIdxs.push(Number(questionIdx));
+          }
+          questionIdxs.sort((a, b) => a - b);
+          questionIdxs.forEach((i) => {
+            const values = JSON.parse(sessionStorage.getItem(String(i))); // get the value
             const quesItem = document.createElement("li");
             const quesText = document.createElement("p");
-            quesText.textContent = key;
+            quesText.textContent = `Question ${i + 1}: ${values[0]}`;
             const ans = document.createElement("p");
-
-            ans.textContent = `Correct answer: ${values[0]}\tYour answer: ${values[1]}`;
+            ans.textContent = `Correct answer: ${values[1]}\tYour answer: ${values[2]}`;
             quesItem.appendChild(quesText);
             quesItem.appendChild(ans);
             ul.appendChild(quesItem);
-          }
+          });
           const main = document.querySelector("main");
           main.appendChild(ul);
         }
       }
       renderScore();
+      sessionStorage.clear();
     </script>
   </body>
 </html>

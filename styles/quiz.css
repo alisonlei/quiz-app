@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 #time-up-modal {
   display: none;
@@ -20,31 +21,99 @@
 }
 
 /* quesiton display */
+
 .hide {
   display: none;
 }
 
 fieldset {
-  margin: 2em 0;
-  width: 100%;
-}
-fieldset div {
-  display: flexbox;
+  display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  /* white space */
+  margin-top: 2em;
+  /* width: 100%; */
+  height: 50%;
+
+  border: 0;
 }
+fieldset input {
+  /* white space */
+  margin-bottom: 20px;
+  /* visual hierachy */
+
+  /* sizing */
+  /* display: inline-block; */
+  /* positioning */
+
+  /* styling */
+}
+
 legend {
-  font-weight: bold;
+  /* visual hierachy */
+  font-size: 18px;
+  /* white space */
+  line-height: 1.5em;
+  margin-bottom: 10px;
+  /* positioning */
+}
+legend span:first-of-type {
+  border: 3px solid white;
+  border-radius: 20%;
+  padding: 5px;
+  margin-right: 1rem;
+}
+
+/* question panel */
+#question-panel {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 10px;
+  row-gap: 7px;
+  border: 5px solid white;
+  border-radius: 10px;
+  padding: 7px 10px;
+
+  max-width: 500px;
+  margin: auto;
+}
+#question-panel button {
+  border: none;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: brown;
+  color: white;
+}
+#question-panel button:hover,
+#question-panel button:focus {
+  background-color: rgb(79, 19, 19);
 }
 
 /* controls */
+
 #quiz-controls {
   display: flex;
   justify-content: space-evenly;
   position: relative;
+  max-width: 500px;
+  margin: auto;
+  padding: 1rem;
 }
-#quiz-controls #next {
+#quiz-controls button {
+  border: none;
+  background-color: brown;
+  height: 2rem;
+  width: 30%;
+  min-width: fit-content;
+
+  border-radius: 50%;
+  color: white;
 }
-/* #quiz-controls #submit { */
-/* position: absolute;
-  left: 50%;
-} */
+#quiz-controls button:hover,
+#quiz-controls button:focus {
+  background-color: rgb(79, 19, 19);
+}
+#quiz-controls button:active {
+  border: 3px solid white;
+  background-color: rgb(35, 9, 9);
+}

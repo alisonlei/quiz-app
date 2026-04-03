@@ -5,12 +5,12 @@ export default function checkAnswers(allSelectedAns, allQuestions) {
     if (correctAns === ans) {
       score += 1;
     } else {
-      if (ans === undefined) {
-        ans = "blank";
+      if (ans === "") {
+        ans = "unanswered";
       }
       sessionStorage.setItem(
-        allQuestions[i]["question"],
-        JSON.stringify([correctAns, ans]),
+        i,
+        JSON.stringify([allQuestions[i]["question"], correctAns, ans]),
       );
     }
   });

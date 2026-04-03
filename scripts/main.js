@@ -17,6 +17,7 @@ async function main() {
   let prevQues = { idx: -1, type: "" };
 
   try {
+    setTimeout(console.log("fetch questions"), 2000);
     const response = await fetch(url[subject]);
     if (!response.ok) {
       throw new Error(`response status: ${response.status}`);
@@ -25,6 +26,33 @@ async function main() {
     console.log("successful retrieval" + data.results);
     const [allQuestions, allSelectedAns, mcOptSeq] = initQuizStates(data);
     prevQues = render(0, allQuestions[0], prevQues, mcOptSeq, allSelectedAns);
+
+    //timer
+    const timer = new Timer();
+    // Start a 30‑second countdown
+    timer.start({ countdown: true, startValues: { seconds: 600 } });
+    // Update DOM every second
+    timer.addEventListener("secondsUpdated", () => {
+      document.querySelector("time").textContent = timer
+        .getTimeValues()
+        .toString();
+    });
+    // Handle when time runs out
+    timer.addEventListener("targetAchieved", () => {
+      const popUpWindow = document.querySelector("#time-up-modal");
+      popUpWindow.style.display = "block";
+      checkAnswers(allSelectedAns, allQuestions);
+      window.location.replace("score.html");
+    });
+
+    //button event listeners
+    const questionBtns = document.querySelectorAll("#question-panel button");
+    questionBtns.forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        (render(i, allQuestions[i], prevQues, mcOptSeq, allSelectedAns),
+          console.log("i am question button"));
+      });
+    });
     const nextBtn = document.querySelector("#next");
     nextBtn.addEventListener("click", () => {
       let nextIdx = (prevQues["idx"] + 1) % allQuestions.length;
@@ -45,9 +73,17 @@ async function main() {
     });
     const submitBtn = document.querySelector("#submit");
     submitBtn.addEventListener("click", () => {
-      timer.stop();
-      checkAnswers(allSelectedAns, allQuestions);
-      window.location.replace("score.html");
+      let confirmed = true;
+      if (allSelectedAns.some((ans) => ans === "")) {
+        confirmed = confirm(
+          "You still have unanswered questions. Do you still wish to submit?",
+        );
+      }
+      if (confirmed) {
+        timer.stop();
+        checkAnswers(allSelectedAns, allQuestions);
+        window.location.replace("score.html");
+      }
     });
   } catch (err) {
     console.log(err);
@@ -55,22 +91,14 @@ async function main() {
 }
 main();
 
-//timer
-const timer = new Timer();
-// Start a 30‑second countdown
-timer.start({ countdown: true, startValues: { seconds: 600 } });
-// Update DOM every second
-timer.addEventListener("secondsUpdated", () => {
-  document.querySelector("time").textContent = timer.getTimeValues().toString();
-});
-// Handle when time runs out
-timer.addEventListener("targetAchieved", () => {
-  const popUpWindow = document.querySelector("#time-up-modal");
-  popUpWindow.style.display = "block";
-  checkAnswers();
-  window.location.replace("score.html");
-});
-
 // navigation bar
-
+const exitBtn = document.querySelector("#exit");
+exitBtn.addEventListener("click", () => {
+  const confirmed = confirm(
+    "The quiz is still going, do you wish to leave the quiz?",
+  );
+  if (confirmed) {
+    window.location.replace("index.html");
+  }
+});
 //

@@ -1,0 +1,12 @@
+#home-link {
+  text-decoration: none;
+
+  color: white;
+}
+#home-link-wrapper {
+  padding: 1rem;
+
+  border-radius: 25%;
+  background-color: brown;
+  border: none;
+}

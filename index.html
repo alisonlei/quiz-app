@@ -8,19 +8,32 @@
   </head>
   <body>
     <header>
-      <img src="./images/brain.png" alt="a brain icon" />
-      <h1>My Trivia Quiz</h1>
+      <h1><img src="./images/brain.png" alt="a brain icon" />My Trivia Quiz</h1>
     </header>
     <main>
       <p>Welcome! Choose your quiz:</p>
-      <menu>
-        <li id="general"><a href="quiz.html?subject=general">General</a></li>
-        <li id="music"><a href="quiz.html?subject=music">Music</a></li>
-        <li id="history"><a href="quiz.html?subject=history">History</a></li>
-        <li id="mythology">
-          <a href="quiz.html?subject=mythology">Mythology</a>
-        </li>
-      </menu>
+      <nav id="category-list-wrapper">
+        <ul id="category-list">
+          <li id="general">
+            <a class="category-link" href="quiz.html?subject=general"
+              >General</a
+            >
+          </li>
+          <li id="music">
+            <a class="category-link" href="quiz.html?subject=music">Music</a>
+          </li>
+          <li id="history">
+            <a class="category-link" href="quiz.html?subject=history"
+              >History</a
+            >
+          </li>
+          <li id="mythology">
+            <a class="category-link" href="quiz.html?subject=mythology"
+              >Mythology</a
+            >
+          </li>
+        </ul>
+      </nav>
     </main>
   </body>
 </html>
